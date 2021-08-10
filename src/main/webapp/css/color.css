@@ -11,33 +11,6 @@ body{
 	font-size: 0.9em;
 }
 
-/*　おもに提案画面で表示する店舗一覧を見やすくする　*/
-.S_table {
-	margin: auto;
-	text-align: center;
-	border-spacing: 0;
-}
-
-.S_table th {
-	border-bottom: solid 2px #fb5144;
-	border-left: solid 0.05px whitesmoke;
-	border-right: solid 0.05px whitesmoke;
-	background-color: snow;
-	padding: 10px 0;
-}
-
-.S_table td {
-	border-bottom: solid 2px #ADFF2F;
-	border-right: solid 0.01px whitesmoke;
-	padding: 1
-}
-
-.S_table td.data-comment{
-	border-right: none;
-	border-left: none;
-}
-
-
 /*
 * ジャンルや価格帯、並び替えのプルダウンの部分
 */
@@ -135,26 +108,22 @@ body{
 */
 .form {
 	box-sizing: border-box;
-	width: 400px;
+	width: 300px;
 	height: 27px;
 	margin: 4px 0;
 	font-size: 18px;
 	color: #333;
-	border: 0;
+	border: 1px solid #00b5ad;
 	border-top: none;
 	border-right: none;
-	border-bottom: 1px solid #ccc;
 	border-left: none;
 	outline: 0;
 	transition: 0.3s;
 	-webkit-appearance: none;
 }
 
-.form {
-	border: 1px solid #00b5ad;
-	border-top: none;
-	border-right: none;
-	border-left: none;
+.form#birthday {
+	width: 80px;
 }
 
 /*

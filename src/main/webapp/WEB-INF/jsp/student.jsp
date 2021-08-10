@@ -7,6 +7,7 @@ String student_name = (String) request.getAttribute("student_name");
 String student_name_phonetic = (String) request.getAttribute("student_name_phonetic");
 String birth_year = (String) request.getAttribute("birth_year");
 String birth_manth = (String) request.getAttribute("birth_manth");
+String birth_day = (String) request.getAttribute("birth_day");
 String address = (String) request.getAttribute("address");
 int gender = -1;
 if (request.getAttribute("gender") != null) {
@@ -50,14 +51,14 @@ String note = (String) request.getAttribute("note");
 					value=<%=student_name%> <%}%>></td>
 			</tr>
 			<tr>
-				<td>生年月日(例 1999/01/01)<input class="form" type="text"
+				<td>生年月日(例 1999/01/01)<input class="form" type="text" id="birthday"
 					name="birth_year" placeholder="年" required
 					pattern="19[0-9][0-9]|20[0-2][0-9]" title="半角数字"
-					<%if (birth_year != null) {%> value=<%=birth_year%> <%}%>><input
-					class="form" type="text" name="birth_manth" placeholder="月"
+					<%if (birth_year != null) {%> value=<%=birth_year%> <%}%>>/<input
+					class="form" type="text"  id="birthday" name="birth_manth" placeholder="月"
 					<%if (birth_manth != null) {%> value=<%=birth_manth%> <%}%>
-					required pattern="0[1-9]|1[0-2]" title="半角数字"><input
-					class="form" type="text" name="birth_day" placeholder="日"
+					required pattern="0[1-9]|1[0-2]" title="半角数字">/<input
+					class="form" type="text"  id="birthday" name="birth_day" placeholder="日"
 					<%if (birth_day != null) {%> value=<%=birth_day%> <%}%> required
 					pattern="0[1-9]|[12][0-9]|3[01]" title="半角数字"></td>
 			</tr>
