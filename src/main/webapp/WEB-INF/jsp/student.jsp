@@ -2,8 +2,20 @@
 	pageEncoding="UTF-8" import="java.util.Date"%>
 <%
 //リクエストスコープからインスタンスを取得
+String student_id = (String) request.getAttribute("student_id");
+String student_name = (String) request.getAttribute("student_name");
+String student_name_phonetic = (String) request.getAttribute("student_name_phonetic");
+String birth_year = (String) request.getAttribute("birth_year");
+String birth_manth = (String) request.getAttribute("birth_manth");
+String address = (String) request.getAttribute("address");
+int gender = -1;
+if (request.getAttribute("gender") != null) {
+	gender = (int) request.getAttribute("gender");
+}
+String phone_number1 = (String) request.getAttribute("phone_number1");
+String phone_number2 = (String) request.getAttribute("phone_number2");
 String request_course = (String) request.getAttribute("request_course");
-int glasses = 0;
+int glasses = -1;
 if (request.getAttribute("glasses") != null) {
 	glasses = (int) request.getAttribute("glasses");
 }
@@ -26,7 +38,53 @@ String note = (String) request.getAttribute("note");
 	<h2>生徒入力名簿</h2>
 
 	<form action="/StudentServlet/StudentServlet" method="post"
-		　onSubmit="return check()">
+		onSubmit="return check()">
+		<table class="form_table">
+			<tr>
+				<td><input class="form" type="text" name="student_id"
+					placeholder="生徒ID" required></td>
+			</tr>
+			<tr>
+				<td><input class="form" type="text" name="student_name"
+					placeholder="氏名" required <%if (student_name != null) {%>
+					value=<%=student_name%> <%}%>></td>
+			</tr>
+			<tr>
+				<td>生年月日(例 1999/01/01)<input class="form" type="text"
+					name="birth_year" placeholder="年" required
+					pattern="19[0-9][0-9]|20[0-2][0-9]" title="半角数字"
+					<%if (birth_year != null) {%> value=<%=birth_year%> <%}%>><input
+					class="form" type="text" name="birth_manth" placeholder="月"
+					<%if (birth_manth != null) {%> value=<%=birth_manth%> <%}%>
+					required pattern="0[1-9]|1[0-2]" title="半角数字"><input
+					class="form" type="text" name="birth_day" placeholder="日"
+					<%if (birth_day != null) {%> value=<%=birth_day%> <%}%> required
+					pattern="0[1-9]|[12][0-9]|3[01]" title="半角数字"></td>
+			</tr>
+			<tr>
+				<td><input class="form" type="text" name="address"
+					placeholder="住所" <%if (address != null) {%> value=<%=address%>
+					<%}%> required></td>
+			</tr>
+			<tr>
+				<p>
+					性別<br> <input type="radio" name="gender" value=1
+						<%if (1 == gender) {%> checked <%}%> required> 男性 <input
+						type="radio" name="gender" value=2 <%if (2 == gender) {%> checked
+						<%}%>> 女性
+				</p>
+			</tr>
+			<tr>
+				<td><input class="form" type="text" name="phone_number1"
+					placeholder="連絡先１" required <%if (phone_number1 != null) {%>
+					value=<%=phone_number1%> <%}%>></td>
+			</tr>
+			<tr>
+				<td><input class="form" type="text" name="phone_number2"
+					placeholder="連絡先２" required <%if (phone_number2 != null) {%>
+					value=<%=phone_number2%> <%}%>></td>
+			</tr>
+		</table>
 		<div class="cp_ipselect">
 			<select name="request_course" class="cp_sl06" required>
 				<option value="" hidden disabled selected></option>
@@ -48,9 +106,9 @@ String note = (String) request.getAttribute("note");
 				class="cp_sl06_selectbar"></span> <label class="cp_sl06_selectlabel">希望コース</label>
 		</div>
 		<p>
-			眼鏡<br> <input type="radio" name="glasses" value=1
-				<%if (1 == glasses) {%> checked <%}%> required> 有り <input
-				type="radio" name="glasses" value=2 <%if (2 == glasses) {%> checked
+			眼鏡<br> <input type="radio" name="glasses" value=0
+				<%if (0 == glasses) {%> checked <%}%> required> 有り <input
+				type="radio" name="glasses" value=1 <%if (1 == glasses) {%> checked
 				<%}%>> 無し
 		</p>
 		<table class="form_table">
@@ -81,21 +139,14 @@ String note = (String) request.getAttribute("note");
 		<pre>
 		</pre>
 
-		<div class="button_wrapper">
-			<button type="submit" id="gradual"
-				onclick="/driving_school/StudentServlet">問合せ</button>
-		</div>
 		<span class="button_wrapper">
-			<button type="submit" id="gradual"
-				onclick="/driving_school/RegisterServlet">登録</button>
-		</span>
-		<span class="button_wrapper">
-			<button type="submit" id="gradual"
-				onclick="/driving_school/ModifyServlet">修正</button>
-		</span>
-		<span class="button_wrapper">
-			<button type="submit" id="gradual"
-				onclick="/driving_school/DeleteServlet">削除</button>
+			<button type="submit" id="gradual"name="submit" value="select">問合せ</button>&nbsp;&nbsp;
+		</span>&nbsp;&nbsp; <span class="button_wrapper">
+			<button type="submit" id="gradual"name="submit" value="register">登録</button>
+		</span> <span class="button_wrapper">
+			<button type="submit" id="gradual" name="submit" value="modify">修正</button>
+		</span> <span class="button_wrapper">
+			<button type="submit" id="gradual" name="submit" value="delete">削除</button>
 		</span>
 	</form>
 	<br>
@@ -104,7 +155,7 @@ String note = (String) request.getAttribute("note");
 		<button type="button" id="gradual" onclick="history.back()">終了</button>
 	</div>
 
-	<script>
+<!-- 	<script>
 	
 	//buttonタグごとに送信先のコントローラを指定するための関数
     function submitForm(action)
@@ -112,6 +163,6 @@ String note = (String) request.getAttribute("note");
         document.getElementById('columnarForm').action = action;
         document.getElementById('columnarForm').submit();
     }
-	</script>
+	</script>  -->
 </body>
 </html>
