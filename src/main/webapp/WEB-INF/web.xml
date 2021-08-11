@@ -19,4 +19,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>T_Student</display-name>
+    <servlet-name>T_Student</servlet-name>
+    <servlet-class>dao.T_Student</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>T_Student</servlet-name>
+    <url-pattern>/T_Student</url-pattern>
+  </servlet-mapping>
 </web-app>

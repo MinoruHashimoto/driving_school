@@ -11,10 +11,6 @@ import model.Employee;
 public class M_EmployeeDAO extends parentDAO {
 	public boolean findby(String employee_code, String password)  {
 
-		/**
-		 * Connectionを取得する関数。子クラスはこれでConnectionを使う。
-		 */
-
 		try {
 			Connection connection = DriverManager.getConnection(LOCAL_DATABASE_URL, "postgres", "kanri");
 
